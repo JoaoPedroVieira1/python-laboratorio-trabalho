@@ -1,0 +1,15 @@
+* As 3 primeiras linhas abrem uma imagem *
+img = cv2.imread('j.png',0) 
+img_opening = cv2.imread('j_ruido.png',0)
+img_closing = cv2.imread('j_furos.png',0)
+altura, largura = img.shape  //altera as proporções da imagem
+kernel = np.ones((5,5),np.uint8)  //cria um arranjo de unidades
+print(kernel) //visualiza o kernel
+
+erosion = cv2.erode(img,kernel,iterations = 2)  // remove os limites em primeiro plano do objeto
+dilation = cv2.dilate(img,kernel,iterations = 2) // aumenta a área do objeto
+
+* As 3 linhas realizam transformações morfológicas utilizando erosão e dilatação como operandos básicos *
+gradient = cv2.morphologyEx(img, cv2.MORPH_GRADIENT, kernel) 
+opening = cv2.morphologyEx(img_opening, cv2.MORPH_OPEN, kernel)
+closing = cv2.morphologyEx(img_closing, cv2.MORPH_CLOSE, kernel)
